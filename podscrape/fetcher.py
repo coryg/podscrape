@@ -39,5 +39,7 @@ class Fetcher(object):
         """
         podcasts = []
         for url in url_list:
-            podcasts.append(self.lookup(url))
+            podcast = self.lookup(url)
+            if podcast:
+                podcasts.append(self.lookup(url))
         return podcasts

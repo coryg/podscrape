@@ -21,19 +21,25 @@ def unwrap_json(json_text):
     """
     json_dict = json.loads(json_text)
     single_json = json_text
-    if (u'results' in json_dict):
+    if (u'results' in json_dict) and json_dict[u'resultCount'] > 0:
         single_result = json_dict[u'results'][0]
         single_json = json.dumps(single_result)
     return single_json
 
 def podcast_from_json(json_text):
     """Return Podcast with info from json_text"""
-    text = unwrap_json(json_text)
-    json_dict = json.loads(text)
-    itunes_id = json_dict[u'collectionId']
-    name = json_dict[u'collectionName']
-    feed_url = json_dict[u'feedUrl']
-    return Podcast(itunes_id, name, feed_url)
+
+    json_dict = json.loads(json_text)
+    print(json_text)
+
+    if json_dict[u'resultCount'] > 0:
+        text = unwrap_json(json_text)
+        json_dict = json.loads(text)
+        itunes_id = json_dict[u'collectionId']
+        name = json_dict[u'collectionName']
+        feed_url = json_dict[u'feedUrl']
+        return Podcast(itunes_id, name, feed_url)
+    return None
 
 def itunes_id_from_url(url):
     """Return id number from itunes podcast url"""
