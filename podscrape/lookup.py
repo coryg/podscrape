@@ -30,7 +30,6 @@ def podcast_from_json(json_text):
     """Return Podcast with info from json_text"""
 
     json_dict = json.loads(json_text)
-    print(json_text)
 
     if json_dict[u'resultCount'] > 0:
         text = unwrap_json(json_text)
